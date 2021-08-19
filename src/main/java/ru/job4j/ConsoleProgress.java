@@ -1,5 +1,7 @@
 package ru.job4j;
 
+import java.util.HashMap;
+
 public class ConsoleProgress implements Runnable {
 
     public static void main(String[] args) throws InterruptedException {
@@ -12,15 +14,15 @@ public class ConsoleProgress implements Runnable {
     @Override
     public void run() {
         String[] process = {"\\", "|", "/", "-", "\\", "\\", "|", "/", "-", "\\"};
-        for (int i = 0; i < process.length; i++) {
-            if (!Thread.currentThread().isInterrupted()) {
-                System.out.print("\r load: " + process[i]);
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+            while (!Thread.currentThread().isInterrupted()) {
+                for (var el : process) {
+                    System.out.print("\r load: " + el);
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
     }
-}
