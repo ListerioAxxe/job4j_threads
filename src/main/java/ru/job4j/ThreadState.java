@@ -8,8 +8,10 @@ public class ThreadState {
                 () -> System.out.println(Thread.currentThread().getName()));
         first.start();
         sec.start();
-        first.join();
-        sec.join();
+        while (first.getState() != Thread.State.TERMINATED || sec.getState() != Thread.State.TERMINATED) {
+            System.out.println(first.getState());
+            System.out.println(sec.getState());
+        }
         System.out.println("Работа завершена ...");
     }
 }
