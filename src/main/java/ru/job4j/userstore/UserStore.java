@@ -17,9 +17,8 @@ public class UserStore implements UserStorage {
 
     @Override
     public synchronized boolean update(User user) {
-        return storage.computeIfPresent(user.getId(),
-                (first, second) -> second = user) != null;
-        }
+        return storage.replace(user.getId(), user) != null;
+    }
 
     @Override
     public synchronized boolean delete(User user) {
@@ -31,8 +30,9 @@ public class UserStore implements UserStorage {
         User from = storage.get(fromId);
         User to = storage.get(toId);
         if (from != null && to != null && from.getAmount() >= amount) {
-          return this.update(new User(fromId, from.getAmount() - amount))
-                  && this.update(new User(toId, to.getAmount() + amount));
+           from.setAmount(from.getAmount() - amount);
+           to.setAmount(to.getAmount() + amount);
+            return true;
         }
         return false;
     }
