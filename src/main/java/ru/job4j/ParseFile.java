@@ -12,9 +12,9 @@ public class ParseFile {
 
     public String getContent(Predicate<Character> predicate) throws IOException {
         try (var in = new BufferedReader(new FileReader(file))) {
-            StringBuffer buf = new StringBuffer();
-            int data = in.read();
-            while (data != -1) {
+            var buf = new StringBuilder();
+            int data;
+            while ((data = in.read()) > 0) {
                 if (predicate.test((char) data)) {
                     buf.append(data);
                 }
