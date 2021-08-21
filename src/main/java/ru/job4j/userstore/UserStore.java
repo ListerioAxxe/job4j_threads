@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @ThreadSafe
 public class UserStore implements UserStorage {
 

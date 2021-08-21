@@ -1,10 +1,6 @@
 package ru.job4j;
 
-
-import org.checkerframework.checker.units.qual.C;
 import org.junit.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,7 +36,5 @@ public class SimpleBlockingQueueTest  {
        producer.join();
        consumer.join();
        assertThat(test, is(List.of(1,2,3)));
-
     }
-
 }
