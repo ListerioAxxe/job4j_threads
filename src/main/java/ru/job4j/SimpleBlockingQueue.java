@@ -17,26 +17,22 @@ public class SimpleBlockingQueue<T> {
     }
 
     public synchronized void offer(T value) throws InterruptedException {
-        while (this.queue.size() == this.countFull) {
+        while (queue.size() == countFull) {
             wait();
         }
-        if (this.queue.isEmpty()) {
             notifyAll();
-        }
         queue.offer(value);
     }
 
     public synchronized T poll() throws InterruptedException {
-        while (this.queue.isEmpty()) {
+        while (queue.isEmpty()) {
             wait();
         }
-        if (this.queue.size() == this.countFull) {
             notifyAll();
-        }
-       return this.queue.poll();
+       return queue.poll();
     }
 
     public boolean isEmpty() {
-        return this.queue.size() == 0;
+        return queue.size() == 0;
     }
 }
