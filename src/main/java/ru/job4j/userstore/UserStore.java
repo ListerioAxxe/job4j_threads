@@ -11,7 +11,7 @@ public class UserStore implements UserStorage {
 
     @Override
     public synchronized boolean add(User user) {
-       return storage.putIfAbsent(user.getId(), user) != null;
+       return storage.putIfAbsent(user.getId(), user) == null;
     }
 
     @Override
