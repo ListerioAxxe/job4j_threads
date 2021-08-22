@@ -11,9 +11,9 @@ public class CASCount {
     public void increment() {
         Integer currCount;
         do {
-           currCount = get();
+           currCount = count.get();
         }
-        while (count.compareAndSet(currCount, currCount + 1));
+        while (!count.compareAndSet(currCount, currCount + 1));
     }
 
     public int get() {
