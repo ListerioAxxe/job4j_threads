@@ -1,7 +1,9 @@
 package ru.job4j;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
@@ -10,17 +12,17 @@ public class ThreadPool {
     public ThreadPool() {
         for (int i = 0; i < getPoolSize(); i++) {
             threads.add(new Thread(() -> {
-                System.out.println("Поток " + Thread.currentThread().getName() + " стартовал...");
                 while (!Thread.currentThread().isInterrupted()) {
-                    System.out.println("Поток " + Thread.currentThread().getName() + " работает");
                     try {
                         tasks.poll().run();
                     } catch (InterruptedException e) {
-                        System.out.println(Thread.currentThread().getName() + " прерван");
                         Thread.currentThread().interrupt();
                     }
                 }
             }));
+            }
+        for (var thread : threads) {
+            thread.start();
         }
     }
 
@@ -41,5 +43,13 @@ public class ThreadPool {
 
     private int getPoolSize() {
         return Runtime.getRuntime().availableProcessors();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadPool pool = new ThreadPool();
+        pool.work(() -> System.out.println(Thread.currentThread().getName()));
+        pool.work(() -> System.out.println(Thread.currentThread().getName()));
+        pool.work(() -> System.out.println(Thread.currentThread().getName()));
+        pool.shutdown();
     }
 }
