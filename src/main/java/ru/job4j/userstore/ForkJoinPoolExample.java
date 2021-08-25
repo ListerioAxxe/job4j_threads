@@ -6,8 +6,8 @@ import java.util.concurrent.RecursiveTask;
 public class ForkJoinPoolExample extends RecursiveTask<Integer> {
 
     private final Integer[] array;
-    private final Integer from;
-    private final Integer to;
+    private final int from;
+    private final int to;
     private final Integer value;
 
     public ForkJoinPoolExample(Integer[] array, Integer from, Integer to, Integer value) {
@@ -19,7 +19,7 @@ public class ForkJoinPoolExample extends RecursiveTask<Integer> {
 
     @Override
     public Integer compute() {
-        if (to - from < 10) {
+        if (to - from < 11) {
             return find();
         }
         int mid = (from + to) / 2;
@@ -33,7 +33,7 @@ public class ForkJoinPoolExample extends RecursiveTask<Integer> {
     }
 
     private int find() {
-        for (int i = 0; i < array.length; i++) {
+        for (int i = from; i <= to; i++) {
             if (array[i].equals(value)) {
                 return i;
             }
