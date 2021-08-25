@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class App {
     public static void main(String[] args) {
-        ArrayList<?> list = new ArrayList<>();
         ArrayList<String> list1 = (ArrayList<String>) list.clone();
         ArrayList<?> list2 = new ArrayList<>();
         System.out.println(list1);
