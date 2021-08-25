@@ -10,6 +10,7 @@ public class ForkJoinPoolExample extends RecursiveTask<Integer> {
     private final int to;
     private final Integer value;
 
+
     public ForkJoinPoolExample(Integer[] array, Integer from, Integer to, Integer value) {
         this.array = array;
         this.from = from;
